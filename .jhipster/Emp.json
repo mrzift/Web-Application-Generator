@@ -1,0 +1,42 @@
+{
+  "applications": "*",
+  "changelogDate": "20230707193341",
+  "entityTableName": "emp",
+  "fields": [
+    {
+      "fieldName": "empId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "empName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "empJob",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "empAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "empSalary",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "Emp",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "manager",
+      "relationshipName": "manager",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

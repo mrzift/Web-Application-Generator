@@ -1,0 +1,29 @@
+{
+  "timothyApp": {
+    "emp": {
+      "home": {
+        "title": "Emps",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Emp",
+        "createOrEditLabel": "Créer ou éditer un Emp",
+        "notFound": "Aucun Emp trouvé"
+      },
+      "created": "Un nouveau Emp a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Emp avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Emp avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Emp {{ id }} ?"
+      },
+      "detail": {
+        "title": "Emp"
+      },
+      "id": "ID",
+      "empId": "Emp Id",
+      "empName": "Emp Name",
+      "empJob": "Emp Job",
+      "empAddress": "Emp Address",
+      "empSalary": "Emp Salary",
+      "manager": "Manager"
+    }
+  }
+}

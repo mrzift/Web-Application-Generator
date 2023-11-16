@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-manager-heading" data-cy="ManagerCreateUpdateHeading" jhiTranslate="timothyApp.manager.home.createOrEditLabel">
+        Create or edit a Manager
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.manager.manId" for="field_manId">Man Id</label>
+          <input type="number" class="form-control" name="manId" id="field_manId" data-cy="manId" formControlName="manId" />
+          <div *ngIf="editForm.get('manId')!.invalid && (editForm.get('manId')!.dirty || editForm.get('manId')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('manId')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('manId')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.manager.manName" for="field_manName">Man Name</label>
+          <input type="text" class="form-control" name="manName" id="field_manName" data-cy="manName" formControlName="manName" />
+          <div *ngIf="editForm.get('manName')!.invalid && (editForm.get('manName')!.dirty || editForm.get('manName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('manName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.manager.manEmail" for="field_manEmail">Man Email</label>
+          <input type="text" class="form-control" name="manEmail" id="field_manEmail" data-cy="manEmail" formControlName="manEmail" />
+          <div *ngIf="editForm.get('manEmail')!.invalid && (editForm.get('manEmail')!.dirty || editForm.get('manEmail')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('manEmail')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

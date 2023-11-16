@@ -1,0 +1,125 @@
+<div>
+  <h2 id="page-heading" data-cy="EmpHeading" style="text-align:center;  font-size:50px;">
+    <span jhiTranslate="timothyApp.emp.home.title">Emps</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="timothyApp.emp.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-emp"
+        [routerLink]="['/emp/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="timothyApp.emp.home.createLabel"> Create a new Emp </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="emps?.length === 0">
+    <span jhiTranslate="timothyApp.emp.home.notFound">No Emps found</span>
+  </div>
+  <div class="table-responsive table-entities" id="entities" *ngIf="emps && emps.length > 0" >
+    <table class="table table-bordered" aria-describedby="page-heading" style="border-color:black">
+      <thead>
+        <tr style="background-color:black" jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th style="background-color:powderblue" scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th style="background-color:powderblue" scope="col" jhiSortBy="empId">
+            <div class="d-flex">
+              <span jhiTranslate="timothyApp.emp.empId">Emp Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="empName" style="background-color:powderblue">
+            <div class="d-flex">
+              <span jhiTranslate="timothyApp.emp.empName">Emp Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="empJob" style="background-color:powderblue">
+            <div class="d-flex">
+              <span jhiTranslate="timothyApp.emp.empJob">Emp Job</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="empAddress" style="background-color:powderblue">
+            <div class="d-flex">
+              <span jhiTranslate="timothyApp.emp.empAddress">Emp Address</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th style="background-color:powderblue" scope="col" jhiSortBy="empSalary">
+            <div class="d-flex">
+              <span jhiTranslate="timothyApp.emp.empSalary">Emp Salary</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="manager.id" style="background-color:powderblue">
+            <div class="d-flex">
+              <span jhiTranslate="timothyApp.emp.manager">Manager</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="manEmail" style="background-color:powderblue">
+            <div class="d-flex">
+              <span >Actions</span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let emp of emps; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/emp', emp.id, 'view']">{{ emp.id }}</a>
+          </td>
+          <td>{{ emp.empId }}</td>
+          <td>{{ emp.empName }}</td>
+          <td>{{ emp.empJob }}</td>
+          <td>{{ emp.empAddress }}</td>
+          <td>{{ emp.empSalary }}</td>
+          <td>
+            <div *ngIf="emp.manager">
+              <a [routerLink]="['/manager', emp.manager.id, 'view']">{{ emp.manager.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/emp', emp.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/emp', emp.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(emp)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

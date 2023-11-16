@@ -1,0 +1,103 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-emp-heading" data-cy="EmpCreateUpdateHeading" jhiTranslate="timothyApp.emp.home.createOrEditLabel">
+        Create or edit a Emp
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.emp.empId" for="field_empId">Emp Id</label>
+          <input type="number" class="form-control" name="empId" id="field_empId" data-cy="empId" formControlName="empId" />
+          <div *ngIf="editForm.get('empId')!.invalid && (editForm.get('empId')!.dirty || editForm.get('empId')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('empId')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('empId')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.emp.empName" for="field_empName">Emp Name</label>
+          <input type="text" class="form-control" name="empName" id="field_empName" data-cy="empName" formControlName="empName" />
+          <div *ngIf="editForm.get('empName')!.invalid && (editForm.get('empName')!.dirty || editForm.get('empName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('empName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.emp.empJob" for="field_empJob">Emp Job</label>
+          <input type="text" class="form-control" name="empJob" id="field_empJob" data-cy="empJob" formControlName="empJob" />
+          <div *ngIf="editForm.get('empJob')!.invalid && (editForm.get('empJob')!.dirty || editForm.get('empJob')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('empJob')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.emp.empAddress" for="field_empAddress">Emp Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="empAddress"
+            id="field_empAddress"
+            data-cy="empAddress"
+            formControlName="empAddress"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.emp.empSalary" for="field_empSalary">Emp Salary</label>
+          <input type="number" class="form-control" name="empSalary" id="field_empSalary" data-cy="empSalary" formControlName="empSalary" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="timothyApp.emp.manager" for="field_manager">Manager</label>
+          <select
+            class="form-control"
+            id="field_manager"
+            data-cy="manager"
+            name="manager"
+            formControlName="manager"
+            [compareWith]="compareManager"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="managerOption" *ngFor="let managerOption of managersSharedCollection">{{ managerOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

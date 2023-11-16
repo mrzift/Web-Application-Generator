@@ -1,0 +1,32 @@
+
+entity Manager {
+	manId Long required unique
+    manName String required
+    manEmail String required
+}
+
+entity Emp {
+	empId Long required unique
+    empName String required
+    empJob String required
+    empAddress String
+    empSalary Integer
+}
+
+
+
+relationship OneToMany {
+	Manager to Emp{manager}
+}
+
+// Set pagination options
+paginate Manager, Emp with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

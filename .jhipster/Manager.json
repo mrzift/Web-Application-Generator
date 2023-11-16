@@ -1,0 +1,35 @@
+{
+  "applications": "*",
+  "changelogDate": "20230707193342",
+  "entityTableName": "manager",
+  "fields": [
+    {
+      "fieldName": "manId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "manName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "manEmail",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Manager",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityName": "emp",
+      "otherEntityRelationshipName": "manager",
+      "relationshipName": "emp",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
